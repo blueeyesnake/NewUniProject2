@@ -15,14 +15,12 @@ public class MainActivity extends AppCompatActivity {
     // for our array list and swipe deck.
     private SwipeDeck cardStack;
     private ArrayList<CourseModal> courseModalArrayList;
-    //test commit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // on below line we are initializing our array list and swipe deck.
         int i = 0;
+        // on below line we are initializing our array list and swipe deck.
         courseModalArrayList = new ArrayList<>();
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
