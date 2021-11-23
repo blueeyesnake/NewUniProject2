@@ -77,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        Button btn = (Button)findViewById(R.id.button8);
+        /*Button btn = (Button)findViewById(R.id.button8);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
-        });
+        });*/
 
     }
 
