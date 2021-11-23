@@ -14,25 +14,25 @@ public class DeckAdapter extends BaseAdapter {
 
     // on below line we have created variables
     // for our array list and context.
-    private ArrayList<CourseModal> courseData;
+    private ArrayList<UserFeatures> userData;
     private Context context;
 
     // on below line we have created constructor for our variables.
-    public DeckAdapter(ArrayList<CourseModal> courseData, Context context) {
-        this.courseData = courseData;
+    public DeckAdapter(ArrayList<UserFeatures> userData, Context context) {
+        this.userData = userData;
         this.context = context;
     }
 
     @Override
     public int getCount() {
         // in get count method we are returning the size of our array list.
-        return courseData.size();
+        return userData.size();
     }
 
     @Override
     public Object getItem(int position) {
         // in get item method we are returning the item from our array list.
-        return courseData.get(position);
+        return userData.get(position);
     }
 
     @Override
@@ -50,11 +50,11 @@ public class DeckAdapter extends BaseAdapter {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_rv_item, parent, false);
         }
         // on below line we are initializing our variables and setting data to our variables.
-        ((TextView) v.findViewById(R.id.idTVCourseName)).setText(courseData.get(position).getCourseName());
-        ((TextView) v.findViewById(R.id.idTVCourseDescription)).setText(courseData.get(position).getCourseDescription());
-        ((TextView) v.findViewById(R.id.idTVCourseDuration)).setText(courseData.get(position).getCourseDuration());
-        ((TextView) v.findViewById(R.id.idTVCourseTracks)).setText(courseData.get(position).getCourseTracks());
-        ((ImageView) v.findViewById(R.id.idIVCourse)).setImageResource(courseData.get(position).getImgId());
+        ((TextView) v.findViewById(R.id.idTVCourseName)).setText(userData.get(position).getUsersName());
+        ((TextView) v.findViewById(R.id.idTVCourseDescription)).setText(userData.get(position).getUsersSchool());
+        ((TextView) v.findViewById(R.id.idTVCourseDuration)).setText(userData.get(position).getUsersYear());
+        ((TextView) v.findViewById(R.id.idTVCourseTracks)).setText(userData.get(position).getUsersDistance());
+        ((ImageView) v.findViewById(R.id.idIVCourse)).setImageResource(userData.get(position).getImgId());
         return v;
     }
 }
