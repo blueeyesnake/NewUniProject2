@@ -41,6 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="temp" />
+        android:text="Sign Out"
+        android:onClick="userLogout"/>
 
 </RelativeLayout>
