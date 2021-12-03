@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:padding="3dp"
+            android:textSize="30dp"
             android:text="Users Name"
             android:textColor="@color/white" />
 
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
+                android:textSize="20dp"
                 android:text="Course Tracks"
                 android:textColor="@color/white" />
 
@@ -55,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
+                android:textSize="20dp"
                 android:text="Duration"
                 android:textColor="@color/white" />
 
@@ -67,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="3dp"
+            android:textSize="20dp"
             android:text="Description"
             android:textColor="@color/white" />
 
