@@ -74,6 +74,12 @@
             android:text="Description"
             android:textColor="@color/white" />
 
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
