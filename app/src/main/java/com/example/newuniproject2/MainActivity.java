@@ -62,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
                 for (DataSnapshot child : children) {
                     String name = child.getValue().toString();
-                    usersArrayList.add(new UserFeatures(""+ name, "Senior", "LSU", "2 Miles away", R.drawable.gfg ));
+                    String[] nameArray = name.split(",");
+                    String nameTrim = nameArray[1].substring(6,nameArray[1].length()-1);
+                    String schoolTrim = nameArray[0].substring(8,nameArray[0].length());
+
+                    String nameCut = name.substring(6, name.length()-1);
+                    usersArrayList.add(new UserFeatures(""+ nameTrim, "", ""+ schoolTrim, "2 Miles away", R.drawable.profilepic ));
 
                 }
 
@@ -82,7 +87,10 @@ public class MainActivity extends AppCompatActivity {
 
                 for (DataSnapshot child : children) {
                     String name = child.getValue().toString();
-                    usersArrayList.add(new UserFeatures(""+ name, "Senior", "LSU", "2 Miles away", R.drawable.gfg ));
+                    String[] nameArray = name.split(",");
+                    String nameTrim = nameArray[1].substring(6,nameArray[1].length()-1);
+                    String schoolTrim = nameArray[0].substring(8,nameArray[0].length());
+                    usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.gfg ));
 
                 }
 
@@ -96,10 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         // on below line we are adding data to our array list.
         usersArrayList.add(new UserFeatures("Student 1", "Senior", "LSU", "2 Miles away", R.drawable.gfg));
-        usersArrayList.add(new UserFeatures("Student 2", "Freshman", "LSU", "18 Miles away", R.drawable.gfg));
-        usersArrayList.add(new UserFeatures("Student 3", "Freshman", "LSU", "4 Miles away", R.drawable.gfg));
-        usersArrayList.add(new UserFeatures("Student 4", "Sophomore", "LSU", "5 Miles away", R.drawable.gfg));
-        usersArrayList.add(new UserFeatures("Student 5", "Junior", "LSU", "10 Miles away", R.drawable.gfg));
 
         // on below line we are creating a variable for our adapter class and passing array list to it.
         final DeckAdapter adapter = new DeckAdapter(usersArrayList, this);
