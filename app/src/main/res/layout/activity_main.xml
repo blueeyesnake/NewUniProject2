@@ -32,6 +32,7 @@
             swipedeck:render_above="true"
             swipedeck:rotation_degrees="15" />
 
+
     </com.daprlabs.cardstack.SwipeFrameLayout>
 
     <Button
@@ -43,5 +44,23 @@
         android:layout_marginBottom="20dp"
         android:text="Sign Out"
         android:onClick="userLogout"/>
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginBottom="20dp"
+        android:text="Matches" />
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="false"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:text="Chat"
+        android:onClick="chatActivity"/>
 
 </RelativeLayout>

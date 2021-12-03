@@ -1,5 +1,7 @@
 package com.example.newuniproject2;
 
+import java.util.List;
+
 public class UserFeatures {
 
     // variables for our coursename,
@@ -51,6 +53,7 @@ public class UserFeatures {
     public void setUsersDistance(String usersDistance) {
         this.usersDistance = usersDistance;
     }
+
 
     // constructor.
     public UserFeatures(String usersName, String usersYear, String usersSchool, String usersDistance, int imgId) {
