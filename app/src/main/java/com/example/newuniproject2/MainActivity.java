@@ -1,8 +1,10 @@
 package com.example.newuniproject2;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,15 +28,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Serializable {
     // on below line we are creating variable
     // for our array list and swipe deck.
     private SwipeDeck cardStack;
     private ArrayList<UserFeatures> usersArrayList;
-    private ArrayList<Integer> matches;
+    private ArrayList<String> matches;
     private Button button8;
     private Button button9;
     private Button button10;
+    private int drawable;
+    private int counter;
 
     private FirebaseAuth mAuth;
 
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        counter = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // on below line we are initializing our array list and swipe deck.
         usersArrayList = new ArrayList<>();
+        matches = new ArrayList<>();
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
         // go through each database member
@@ -68,19 +74,35 @@ public class MainActivity extends AppCompatActivity {
                 // gets all children
                 Iterable<DataSnapshot> children = snapshot.getChildren();
 
+
                 for (DataSnapshot child : children) {
                     String name = child.getValue().toString();
                     String[] nameArray = name.split(",");
 
                     String nameTrim = nameArray[1].substring(6,nameArray[1].length()-1);
                     String schoolTrim = nameArray[0].substring(8,nameArray[0].length());
+
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
 
 
 
                     String nameCut = name.substring(6, name.length()-1);
                     if(!(child.getKey().equals(user.getUid()))){
-                        usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.gfg ));
+                        if(counter == 0)
+                            drawable = R.drawable.zid;
+                        if(counter == 1)
+                            drawable = R.drawable.hunter;
+                        if(counter == 2)
+                            drawable = R.drawable.mario;
+                        else
+                            drawable = R.drawable.profilepic;
+
+                        usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior"+counter, ""+schoolTrim, "3 Miles away", drawable ));
+                        counter++;
                     }
 
                 }
@@ -108,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     String nameTrim = nameArray[1].substring(6,nameArray[1].length()-1);
                     String schoolTrim = nameArray[0].substring(8,nameArray[0].length());
                     if(!(child.getKey().equals(user.getUid()))){
-                        usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.gfg ));
+                        usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.peach2 ));
                     }
 
 
@@ -124,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // on below line we are adding data to our array list.
-        usersArrayList.add(new UserFeatures("Student 1", "Senior", "LSU", "2 Miles away", R.drawable.gfg));
+        usersArrayList.add(new UserFeatures("Luigi", "Senior", "LSU", "5 Miles away", R.drawable.luigi));
 
         // on below line we are creating a variable for our adapter class and passing array list to it.
         final DeckAdapter adapter = new DeckAdapter(usersArrayList, this);
@@ -136,12 +158,12 @@ public class MainActivity extends AppCompatActivity {
 
         // on below line we are setting event callback to our card stack.
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
-            List matches = new ArrayList();
+
             String matchName = "";
             @Override
             public void cardSwipedLeft(int position) {
                 // on card swipe left we are displaying a toast message.
-                Toast.makeText(MainActivity.this, "Card Swiped Left", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Card Swiped Left", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -151,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                Toast.makeText(MainActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
+
+                //Toast.makeText(MainActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -264,7 +288,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openMatchesActivity(){
         Intent intent = new Intent(this, matchesActivity.class);
-        //intent.putExtra("MainActivity", matches)
+        intent.putExtra("MainActivity", matches);
+        intent.putStringArrayListExtra("test", (ArrayList<String>) matches);
 
 
         startActivity(intent);

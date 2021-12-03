@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class matchesActivity extends AppCompatActivity {
+public class matchesActivity extends AppCompatActivity implements Serializable {
     ListView l;
+    private Button button11;
+
     String tutorials[]
             = { "Algorithms", "Data Structures",
             "Languages", "Interview Corner",
@@ -22,8 +27,11 @@ public class matchesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         //Intent i = getIntent();
-        //List matches = (List) i.getSerializableExtra("MainActivity");
+        ArrayList<String> test = getIntent().getStringArrayListExtra("test");
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
@@ -33,7 +41,24 @@ public class matchesActivity extends AppCompatActivity {
                 = new ArrayAdapter<String>(
                 this,
                 R.layout.support_simple_spinner_dropdown_item,
-                tutorials);
+                test);
         l.setAdapter(arr);
+
+        button11 = findViewById(R.id.button11);
+        button11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
+    }
+    public void openMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+
+
+        startActivity(intent);
+
+        //finish();
+        //return;
     }
 }
