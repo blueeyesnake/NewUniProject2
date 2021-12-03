@@ -22,15 +22,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // on below line we are creating variable
     // for our array list and swipe deck.
     private SwipeDeck cardStack;
     private ArrayList<UserFeatures> usersArrayList;
+    private ArrayList<Integer> matches;
+    private Button button8;
+    private Button button9;
+    private Button button10;
 
     private FirebaseAuth mAuth;
+
 
     //button to go to login
 
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
 
@@ -63,11 +71,17 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot child : children) {
                     String name = child.getValue().toString();
                     String[] nameArray = name.split(",");
+
                     String nameTrim = nameArray[1].substring(6,nameArray[1].length()-1);
                     String schoolTrim = nameArray[0].substring(8,nameArray[0].length());
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
 
                     String nameCut = name.substring(6, name.length()-1);
-                    usersArrayList.add(new UserFeatures(""+ nameTrim, "", ""+ schoolTrim, "2 Miles away", R.drawable.profilepic ));
+                    if(!(child.getKey().equals(user.getUid()))){
+                        usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.gfg ));
+                    }
 
                 }
 
@@ -84,13 +98,20 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // gets all children
                 Iterable<DataSnapshot> children = snapshot.getChildren();
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 for (DataSnapshot child : children) {
+
+
                     String name = child.getValue().toString();
                     String[] nameArray = name.split(",");
                     String nameTrim = nameArray[1].substring(6,nameArray[1].length()-1);
                     String schoolTrim = nameArray[0].substring(8,nameArray[0].length());
-                    usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.gfg ));
+                    if(!(child.getKey().equals(user.getUid()))){
+                        usersArrayList.add(new UserFeatures(""+ nameTrim, "Senior", ""+schoolTrim, "2 Miles away", R.drawable.gfg ));
+                    }
+
+
 
                 }
 
@@ -110,9 +131,13 @@ public class MainActivity extends AppCompatActivity {
 
         // on below line we are setting adapter to our card stack.
         cardStack.setAdapter(adapter);
+        int count = 0;
+
 
         // on below line we are setting event callback to our card stack.
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+            List matches = new ArrayList();
+            String matchName = "";
             @Override
             public void cardSwipedLeft(int position) {
                 // on card swipe left we are displaying a toast message.
@@ -122,13 +147,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void cardSwipedRight(int position) {
                 // on card swiped to right we are displaying a toast message.
+                matches.add(usersArrayList.get(position).getUsersName());
+
+
+
                 Toast.makeText(MainActivity.this, "Card Swiped Right", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void cardsDepleted() {
                 // this method is called when no card is present
-                Toast.makeText(MainActivity.this, "No more users in your area", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "No more potential matches left", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -143,7 +172,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("TAG", "CARDS MOVED UP");
             }
 
+
         });
+
+        //button8 = findViewById(R.id.button8);
+        button9 = findViewById(R.id.button9);
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMatchesActivity();
+            }
+        });
+        //button10 = findViewById(R.id.button10);
 
 
     }
@@ -212,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
     public void getOppositeSexUsers(){
 
     }
+
+
     // control for logging out button
     public void userLogout(View view){
         mAuth.signOut();
@@ -220,5 +262,24 @@ public class MainActivity extends AppCompatActivity {
         finish();
         return;
     }
+    public void openMatchesActivity(){
+        Intent intent = new Intent(this, matchesActivity.class);
+        //intent.putExtra("MainActivity", matches)
+
+
+        startActivity(intent);
+
+        //finish();
+        //return;
+    }
+
+    public void chatActivity(View view){
+        mAuth.signOut();
+        Intent intent = new Intent(MainActivity.this, chatActivity.class);
+        startActivity(intent);
+        finish();
+        return;
+    }
+
 
 }

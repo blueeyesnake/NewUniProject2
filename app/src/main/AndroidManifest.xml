@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
         <activity
+            android:name=".chatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".matchesActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginToAppActivity"
             android:exported="false" />
         <activity
